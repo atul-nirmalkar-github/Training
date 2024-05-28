@@ -15,16 +15,20 @@ import TrainingEmployeeDetails from './component/Training/TrainingEmployeeDetail
 import Sidebar from './component/SideBar';
 import Company from './component/Company/Company';
 import CompanyDetails from './component/Company/CompanyDetails';
+import { useRef, useState } from 'react';
 function App() {
+  let topMenu = useRef('Admin')
+  const [sideBarKey,setKey] = useState(Math.random());
   function handler(menu){
-    console.log(menu)
+    topMenu.current = menu;
+    setKey(Math.random())
   }
   return (
     <BrowserRouter>
       <div className="App">
           <Menu handler={handler}/>
           <div style={{display:'flex'}}>
-            <Sidebar/>
+            <Sidebar key={sideBarKey} type={topMenu.current}/>
             <Routes>
               <Route path="/" element={<Training />}/>
               <Route index element={<Training />} />

@@ -28,7 +28,15 @@ function Company() {
     { field: "companyAddress" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
     { field: "deviceCount" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
     { field: "employeeCount" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
-    { field: "userCount" ,flex: 1, cellStyle: { 'textAlign': 'left' }}
+    { field: "userCount" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
+    {  field: 'edit',flex:1,
+        cellRenderer : function(params){
+            function navigateToEdit(params){
+              navigate('/company/'+params.data.id)
+            }
+            return <Button onClick={()=>{navigateToEdit(params)}}>Edit</Button>
+        }
+    }
   ]);
 
   useEffect(()=>{

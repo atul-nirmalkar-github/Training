@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -9,46 +9,48 @@ import {
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+  const [sideMenuAr,setSideMenuAr] = useState([])
+  useEffect(()=>{
+    if(props.type==undefined){
+
+    }else{
+      if(props.type=='Admin'){
+        let tempAr = [];
+        setSideMenuAr([])
+        tempAr.push(<>
+          <NavLink exact to="/company" activeClassName="activeClicked">
+            <CDBSidebarMenuItem icon="columns">Comapny</CDBSidebarMenuItem>
+          </NavLink>
+          <NavLink exact to="/department" activeClassName="activeClicked">
+            <CDBSidebarMenuItem icon="columns">Department</CDBSidebarMenuItem>
+          </NavLink>
+          <NavLink exact to="/employee" activeClassName="activeClicked">
+            <CDBSidebarMenuItem icon="user">Employee</CDBSidebarMenuItem>
+          </NavLink>
+        </>)
+
+        setSideMenuAr(tempAr)
+      }
+      else{
+        setSideMenuAr([])
+      }
+    }
+  },[])
+  // admin -- 
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-            Sidebar
+            {props.type}
           </a>
         </CDBSidebarHeader>
-
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/tables" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Tables</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/profile" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/analytics" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">Analytics</CDBSidebarMenuItem>
-            </NavLink>
-
-            <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>
-            </NavLink>
+            {sideMenuAr}    
           </CDBSidebarMenu>
         </CDBSidebarContent>
-
-        <CDBSidebarFooter style={{ textAlign: 'center' }}>
-          <div
-            style={{
-              padding: '20px 5px',
-            }}
-          >
-            Sidebar Footer
-          </div>
-        </CDBSidebarFooter>
       </CDBSidebar>
     </div>
   );

@@ -72,6 +72,9 @@ export const saveTrainingMapperEmployee = async (header) => {
 export const fetchCompany = async () => {
     return await apiGet('http://localhost:8080/company')
 }
+export const fetchCompanyById = async (id) => {
+    return await apiGet('http://localhost:8080/company/'+id)
+}
 export const fetchCompanyByStatus = async (status) => {
     return await apiGet('http://localhost:8080/company/status/'+status)
 }

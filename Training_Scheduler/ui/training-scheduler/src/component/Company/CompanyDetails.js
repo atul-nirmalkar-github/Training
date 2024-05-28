@@ -1,7 +1,7 @@
 import { Button, Card, Container, Form, Row } from "react-bootstrap";
 import "./company.css"
-import { useState } from "react";
-import { saveCompany, saveDepartment } from "../Api/ApiManager";
+import { useEffect, useState } from "react";
+import { fetchCompanyById, saveCompany, saveDepartment } from "../Api/ApiManager";
 import { useNavigate, useParams } from "react-router-dom";
 
 function CompanyDetails() {
@@ -13,6 +13,25 @@ function CompanyDetails() {
   const [contactName,setContactName ] = useState('');
   const [contactPhone,setContactPhone ] = useState('');
   const [companyAddress,setCompanyAddress] = useState('');
+  useEffect(()=>{
+    if(id=='create'){
+
+    }else{
+      loadCompantDetails()
+    }
+  },[])
+  function loadCompantDetails(){
+    fetchCompanyById(id).
+    then((data)=>{
+      console.log(data);
+      setUUID(data.id)
+      setCompanyName(data.name)
+      setCompanyPhone(data.companyPhone)
+      setContactName(data.contactName)
+      setContactPhone(data.contactPhone)
+      setCompanyAddress(data.companyAddress)
+    });
+  }
   function handleSubmit (event) {
     callSaveCompany()
     event.preventDefault();
@@ -49,6 +68,7 @@ function CompanyDetails() {
               type="text" 
               name="companyName" 
               placeholder="Enter Company Name" 
+              value={companyName}
               onChange={(e)=>{setCompanyName(e.target.value)}}
               required/> 
           </Form.Group> 
@@ -59,6 +79,7 @@ function CompanyDetails() {
               type="text" 
               name="companyPhone" 
               placeholder="Enter Company Phone" 
+              value={companyPhone}
               onChange={(e)=>{setCompanyPhone(e.target.value)}}
               required/> 
           </Form.Group> 
@@ -68,7 +89,8 @@ function CompanyDetails() {
             <Form.Control 
               type="text" 
               name="contactName" 
-              placeholder="Enter Contact Name" 
+              placeholder="Enter Contact Name"
+              value={contactName} 
               onChange={(e)=>{setContactName(e.target.value)}}
               required/> 
           </Form.Group> 
@@ -79,6 +101,7 @@ function CompanyDetails() {
               type="text" 
               name="contactPhone" 
               placeholder="Enter Contact Phone" 
+              value={contactPhone}
               onChange={(e)=>{setContactPhone(e.target.value)}}
               required/> 
           </Form.Group> 
@@ -88,7 +111,8 @@ function CompanyDetails() {
             <Form.Control 
               type="text" 
               name="companyAddress" 
-              placeholder="Enter Company Address" 
+              placeholder="Enter Company Address"
+              value={companyAddress} 
               onChange={(e)=>{setCompanyAddress(e.target.value)}}
               required/> 
           </Form.Group> 

@@ -5,9 +5,9 @@ import {  useNavigate } from "react-router-dom";
 
 function Menu(props) {
     const navigate = useNavigate()
-    function clickHandler(url){
-        console.log(props.handler(url))
-        navigate('/'+url);
+    function clickHandler(menu){
+        console.log(props.handler(menu))
+        //navigate('/'+url);
     }
   return (
     <>
@@ -15,17 +15,11 @@ function Menu(props) {
         <Container>
             <Navbar.Brand href="/training">Neeti</Navbar.Brand>
             <Nav className="me-auto">
-            <Nav.Link onClick={()=>{clickHandler('company')}}>Company</Nav.Link>
-            <Nav.Link onClick={()=>{clickHandler('training')}}>Schedule</Nav.Link>
-            <Nav.Link onClick={()=>{clickHandler('department')}}>Department</Nav.Link>
-            <Nav.Link onClick={()=>{clickHandler('subdepartment')}}>Sub Department</Nav.Link>
-            <Nav.Link onClick={()=>{clickHandler('employee')}}>Employee</Nav.Link>
-            <NavDropdown title="Master" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Training Schedule</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Department</NavDropdown.Item>
-              <NavDropdown.Item href="#action5">Sub Department</NavDropdown.Item>
-              <NavDropdown.Item href="#action5">Employee</NavDropdown.Item>
-            </NavDropdown>
+              <Nav.Link onClick={()=>{clickHandler('Admin')}}>Admin</Nav.Link>
+              <Nav.Link onClick={()=>{clickHandler('Master')}}>Master</Nav.Link>
+              <Nav.Link onClick={()=>{clickHandler('Transition')}}>Transition</Nav.Link>
+              <Nav.Link onClick={()=>{clickHandler('Reports')}}>Reports</Nav.Link>
+              <Nav.Link onClick={()=>{clickHandler('Logout')}}>Logout</Nav.Link>
             </Nav>
         </Container>
         </Navbar>

@@ -55,38 +55,39 @@ public class TrainingCompanyController {
 
     public TrainingCompany dtoToObject(CompanyDto dto){
         TrainingCompany company = new TrainingCompany();
-        if(dto.getId()==null || dto.getId().isEmpty()){
-            company.setName(dto.getCompanyName());
-            company.setCompanyPhone(dto.getCompanyPhone());
-            company.setContactName(dto.getContactName());
-            company.setContactPhone(dto.getContactPhone());
-            company.setCompanyAddress(dto.getCompanyAddress());
-            company.setAddress("");
-            company.setSubDomain("");
-            company.setCountry("");
-            company.setCity("");
-            company.setPaymentType(0);
-            company.setSubscriptionStartDate(LocalDateTime.now());
-            company.setSubscriptionEndDate(LocalDateTime.now());
-            company.setMaxEmployeesLimit(0);
-            company.setCompanyCnr("");
-            company.setOwnerName(dto.getContactName());
-            company.setOwnerPhone(dto.getContactPhone());
-            company.setBusinessType("");
-            company.setParentVendor("");
-            company.setProvince("");
-            company.setMaxDevicesLimit(0);
-            company.setMaxMobileApplicationsLimit(0);
-            company.setMaxTransactionsLimit(0);
-            company.setMaxWhatsappPushLimit(0);
-            company.setParentVendorCompanyLogo("");
-            company.setParentVendorSoftwareLogo("");
-            company.setStatus("ACTIVE");
-            company.setWhoCreated("Admin");
-            company.setWhoModified("Admin");
-            company.setWhenCreated(LocalDateTime.now());
-            company.setWhenModified(LocalDateTime.now());
+        if(!(dto.getId()==null || dto.getId().isEmpty())){
+            company.setId(UUID.fromString(dto.getId()));
         }
+        company.setName(dto.getCompanyName());
+        company.setCompanyPhone(dto.getCompanyPhone());
+        company.setContactName(dto.getContactName());
+        company.setContactPhone(dto.getContactPhone());
+        company.setCompanyAddress(dto.getCompanyAddress());
+        company.setAddress("");
+        company.setSubDomain("");
+        company.setCountry("");
+        company.setCity("");
+        company.setPaymentType(0);
+        company.setSubscriptionStartDate(LocalDateTime.now());
+        company.setSubscriptionEndDate(LocalDateTime.now());
+        company.setMaxEmployeesLimit(0);
+        company.setCompanyCnr("");
+        company.setOwnerName(dto.getContactName());
+        company.setOwnerPhone(dto.getContactPhone());
+        company.setBusinessType("");
+        company.setParentVendor("");
+        company.setProvince("");
+        company.setMaxDevicesLimit(0);
+        company.setMaxMobileApplicationsLimit(0);
+        company.setMaxTransactionsLimit(0);
+        company.setMaxWhatsappPushLimit(0);
+        company.setParentVendorCompanyLogo("");
+        company.setParentVendorSoftwareLogo("");
+        company.setStatus("ACTIVE");
+        company.setWhoCreated("Admin");
+        company.setWhoModified("Admin");
+        company.setWhenCreated(LocalDateTime.now());
+        company.setWhenModified(LocalDateTime.now());
         return company;
     }
 

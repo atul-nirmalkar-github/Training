@@ -37,7 +37,7 @@ function App() {
               <Route exact path="/training/:id/employee" element={<TrainingEmployeeDetails />} />
               <Route exact path="/training/:id/employee/add" element={<TrainingEmployeeDetailsAdd />} />
               <Route exact path="/department" element={<Department />} />
-              <Route exact path="/department/create" element={<DepartmentDetails />} />
+              <Route exact path="/department/:id" element={<DepartmentDetails />} />
               <Route exact path="/subdepartment" element={<SubDepartment />} />
               <Route exact path="/subdepartment/create" element={<SubDepartmentDetails />} />
               <Route exact path="/employee" element={<Employee />} />

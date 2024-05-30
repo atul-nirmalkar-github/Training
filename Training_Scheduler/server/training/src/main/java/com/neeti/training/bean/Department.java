@@ -18,7 +18,7 @@ public class Department {
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     private TrainingCompany trainingCompany;
 
-    @Column(name = "dept_code",nullable = false,unique = true)
+    @Column(name = "dept_code",nullable = false)
     private String deptCode;
 
     @Column(name = "dept_name",nullable = false)

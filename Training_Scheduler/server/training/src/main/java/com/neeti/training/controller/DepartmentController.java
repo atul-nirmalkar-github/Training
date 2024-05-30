@@ -38,6 +38,11 @@ public class DepartmentController {
         return departmentService.getDepartmentById(departmentKey);
     }
 
+    @GetMapping(value = "/{companyId}/{departmentCode}", produces = "application/json")
+    public Iterable<Department> getDepartmentByCompanyIdAndDepartmentCode(@PathVariable String companyId,@PathVariable String departmentCode){
+        return departmentService.getDepartmentByCompanyIdAndDepartmentCode(companyId,departmentCode);
+    }
+
     @PostMapping(produces = "application/json")
     public Department saveDepartment(@RequestBody DepartmentDto department){
         Department tempDepartment = dtoToObject(department);
@@ -58,18 +63,19 @@ public class DepartmentController {
 
     public Department dtoToObject(DepartmentDto dto){
         Department department = new Department();
-        if(dto.getDepartmentKey()==0){
-            department.setDeptName(dto.getDepartmentName());
-            department.setDeptCode(dto.getDepartmentCode());
-            department.setTrainingCompany(trainingCompanyService.getCompanyById(UUID.fromString(dto.getCompanyId())));
-            department.setDefault(true);
-            department.setParentDeptId(0);
-            department.setStatus("ACTIVE");
-            department.setWhoCreated("Admin");
-            department.setWhoModified("Admin");
-            department.setWhenCreated(LocalDateTime.now());
-            department.setWhenModified(LocalDateTime.now());
+        if(!(dto.getDepartmentKey()==0)){
+            department.setDepartmentKey(dto.getDepartmentKey());
         }
+        department.setDeptName(dto.getDepartmentName());
+        department.setDeptCode(dto.getDepartmentCode());
+        department.setTrainingCompany(trainingCompanyService.getCompanyById(UUID.fromString(dto.getCompanyId())));
+        department.setDefault(true);
+        department.setParentDeptId(Integer.parseInt(dto.getParentDeptId()));
+        department.setStatus("ACTIVE");
+        department.setWhoCreated("Admin");
+        department.setWhoModified("Admin");
+        department.setWhenCreated(LocalDateTime.now());
+        department.setWhenModified(LocalDateTime.now());
         return department;
     }
 

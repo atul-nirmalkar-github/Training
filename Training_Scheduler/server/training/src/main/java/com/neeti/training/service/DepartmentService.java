@@ -6,6 +6,7 @@ import com.neeti.training.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -48,5 +49,26 @@ public class DepartmentService {
 
     public Iterable<Department> getAllDepartmentByStatus(String status) {
         return departmentRepository.findAllByStatus(status);
+    }
+
+    public Boolean checkDepartmentCodeIsUnique(String companyId, String departmentCode) {
+        Iterable<Department> departments = departmentRepository.findAllByDeptCode(departmentCode);
+        List<Department> list = new ArrayList<Department>();
+        departments.iterator().forEachRemaining(list::add);
+        list.forEach((dept)->{
+            System.out.println("---dept---"+dept);
+        });
+        return departments.spliterator().getExactSizeIfKnown() > 0;
+    }
+
+    public Iterable<Department> getDepartmentByCompanyIdAndDepartmentCode(String companyId, String departmentCode) {
+        Iterable<Department> departments = departmentRepository.findAllByDeptCode(departmentCode);
+        List<Department> list = new ArrayList<Department>();
+        departments.iterator().forEachRemaining((dept)->{
+            if(dept.getTrainingCompany().getId().toString().equals(companyId)){
+                list.add(dept);
+            }
+        });
+        return list;
     }
 }

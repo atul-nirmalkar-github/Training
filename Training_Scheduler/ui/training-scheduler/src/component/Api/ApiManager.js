@@ -33,8 +33,14 @@ export const saveDepartment = async (header) => {
 export const fetchDepartment = async () => {
     return await apiGet('http://localhost:8080/department');
 }
+export const fetchDepartmentById = async (id) => {
+    return await apiGet('http://localhost:8080/department/'+id);
+}
 export const fetchDepartmentByStatus = async (status) => {
     return await apiGet('http://localhost:8080/department/status/'+status);
+}
+export const fetchDepartmentByCompanyIdAndDeptCode = async (companyId,departmentCode) => {
+    return await apiGet('http://localhost:8080/department/'+companyId+"/"+departmentCode);
 }
 export const deleteDepartment = async (header) => {
     return await apiPost('http://localhost:8080/department/delete',header)

@@ -28,6 +28,14 @@ function Department() {
     { field: "company" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
     { field: "createdBy" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
     { field: "createdOn" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
+    {  field: 'edit',flex:1,
+        cellRenderer : function(params){
+            function navigateToEdit(params){
+              navigate('/department/'+params.data.id)
+            }
+            return <Button onClick={()=>{navigateToEdit(params)}}>Edit</Button>
+        }
+    }
   ]);
 
   useEffect(()=>{
@@ -85,7 +93,7 @@ function Department() {
           </Button>
         <div
           className="ag-theme-quartz gridMargin" // applying the grid theme
-          style={{ height: 700 }} // the grid will fill the size of the parent container
+          style={{ height: 500 }} // the grid will fill the size of the parent container
         >
           <AgGridReact
               rowData={rowData}
@@ -93,6 +101,7 @@ function Department() {
               rowSelection="multiple"
               rowMultiSelectWithClick={true}
               onSelectionChanged={addDepartmentList}
+              suppressRowClickSelection={true}
           />
         </div>
       </div>

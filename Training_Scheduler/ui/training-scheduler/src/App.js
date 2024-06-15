@@ -41,7 +41,7 @@ function App() {
               <Route exact path="/subdepartment" element={<SubDepartment />} />
               <Route exact path="/subdepartment/create" element={<SubDepartmentDetails />} />
               <Route exact path="/employee" element={<Employee />} />
-              <Route exact path="/employee/create" element={<EmployeeDetails />} />
+              <Route exact path="/employee/:id" element={<EmployeeDetails />} />
               <Route exact path="/company" element={<Company />} />
               <Route exact path="/company/:id" element={<CompanyDetails />} />
           </Routes>

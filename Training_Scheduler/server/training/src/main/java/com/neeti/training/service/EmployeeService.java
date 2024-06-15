@@ -1,4 +1,3 @@
-/*
 package com.neeti.training.service;
 
 import com.neeti.training.bean.Department;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class EmployeeService {
@@ -20,8 +20,8 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee getEmployeeById(long employeeKey){
-        Optional<Employee> employee = employeeRepository.findById(employeeKey);
+    public Employee getEmployeeById(String employeeKey){
+        Optional<Employee> employee = employeeRepository.findById(UUID.fromString(employeeKey));
         return employee.orElse(null);
     }
 
@@ -30,8 +30,7 @@ public class EmployeeService {
     }
 
     public Boolean deleteDepartment(long employeeKey){
-        employeeRepository.deleteById(employeeKey);
+
         return true;
     }
 }
-*/

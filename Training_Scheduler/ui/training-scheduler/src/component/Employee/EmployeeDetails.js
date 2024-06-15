@@ -2,10 +2,11 @@ import { Button, Card, Container, Form, Row } from "react-bootstrap";
 import "./employee.css"
 import { useEffect, useState } from "react";
 import { fetchDepartment, fetchSubDepartmentByDepartmentKey, saveEmployee, saveTrainingDetail } from "../Api/ApiManager";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function EmployeeDetails() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const {id} = useParams();
   const [employeeKey,setEmployeeKey] = useState(0);
   const [employeeName,setEmployeeName] = useState('');
   const [employeeCode,setEmployeeCode] = useState('');
@@ -78,17 +79,141 @@ function EmployeeDetails() {
                   height: '100%',  
                   padding: 30 }}>
 
-      <Card style={{ width: '50%',height:'100%' }}>
+      <Card style={{ width: '100%',height:'100%' }}>
         <Card.Body>
           <Card.Title>Employee Details</Card.Title>
-          <Form onSubmit={handleSubmit}> 
-            <Form.Group> 
-              <Form.Label className="control-label">Employee Name:</Form.Label> 
-              <Form.Control 
-                type="text" 
-                placeholder="Enter Employee Name" 
-                onChange={(e)=>{setEmployeeName(e.target.value)}}/> 
-            </Form.Group> 
+          <Form onSubmit={handleSubmit}>
+            <div style={{display:'flex'}}> 
+              <div style={{paddingRight:50}}>
+                <Form.Label className="control-label">Employee Code:</Form.Label> 
+                  <Form.Control 
+                    type="text" 
+                    style={{width:250}}
+                    placeholder="Enter Employee Code" 
+                    onChange={(e)=>{setEmployeeName(e.target.value)}}/> 
+              </div>
+              <div style={{paddingRight:50}}>
+                <Form.Label className="control-label">First Name:</Form.Label> 
+                  <Form.Control 
+                    type="text" 
+                    style={{width:250}}
+                    placeholder="Enter First Name" 
+                    onChange={(e)=>{setEmployeeCode(e.target.value)}}/> 
+              </div>
+              <div style={{paddingRight:50}}>
+                <Form.Label className="control-label">Last Name:</Form.Label> 
+                  <Form.Control 
+                    type="text" 
+                    style={{width:250}}
+                    placeholder="Enter First Name" 
+                    onChange={(e)=>{setEmployeeCode(e.target.value)}}/> 
+              </div>
+            </div>
+            <br/>
+            <div style={{display:'flex'}}> 
+              <div style={{paddingRight:50}}>
+              <Form.Group> 
+                <Form.Label className="control-label">Department :</Form.Label> 
+                <Form.Select 
+                  name="subDepartmentKey" 
+                  placeholder="Select Position" 
+                  required 
+                  style={{width:250}}
+                  onChange={(e)=>{
+                    setGender(e.target.value)
+                  }}>
+                  <option value={0}>Intern</option>
+                  <option value={1}>Experience</option>
+                </Form.Select>
+              </Form.Group> 
+              </div>
+              <div style={{paddingRight:50}}>
+                <Form.Group> 
+                  <Form.Label className="control-label">Position :</Form.Label> 
+                  <Form.Select 
+                    name="subDepartmentKey" 
+                    placeholder="Select Position" 
+                    required 
+                    style={{width:250}}
+                    onChange={(e)=>{
+                      setGender(e.target.value)
+                    }}>
+                    <option value={0}>Intern</option>
+                    <option value={1}>Experience</option>
+                  </Form.Select>
+                </Form.Group> 
+              </div>
+              <div style={{paddingRight:50}}>
+                <Form.Group> 
+                  <Form.Label className="control-label">Employment Type :</Form.Label> 
+                  <Form.Select 
+                    name="subDepartmentKey" 
+                    placeholder="Select Position" 
+                    required 
+                    style={{width:250}}
+                    onChange={(e)=>{
+                      setGender(e.target.value)
+                    }}>
+                    <option value={0}>Full Time</option>
+                    <option value={1}>Contract</option>
+                  </Form.Select>
+                </Form.Group>  
+              </div>
+            </div>
+            <br/>
+            <div style={{display:'flex'}}> 
+              <div style={{paddingRight:50}}>
+                <Form.Label className="control-label">Outdoor Mng:</Form.Label> 
+                  <Form.Control 
+                    type="text" 
+                    style={{width:250}}
+                    placeholder="Enter Employee Code" 
+                    onChange={(e)=>{setEmployeeName(e.target.value)}}/> 
+              </div>
+              <div style={{paddingRight:50}}>
+                <Form.Label className="control-label">Holiday Location:</Form.Label> 
+                  <Form.Control 
+                    type="text" 
+                    style={{width:250}}
+                    placeholder="Enter First Name" 
+                    onChange={(e)=>{setEmployeeCode(e.target.value)}}/> 
+              </div>
+              <div style={{paddingRight:50}}>
+                <Form.Label className="control-label">Date of Joining:</Form.Label> 
+                  <Form.Control 
+                    type="text" 
+                    style={{width:250}}
+                    placeholder="Enter First Name" 
+                    onChange={(e)=>{setEmployeeCode(e.target.value)}}/> 
+              </div>
+            </div>
+            <br/>
+            <div style={{display:'flex'}}> 
+              <div style={{paddingRight:50}}>
+                <Form.Label className="control-label">Aadhar No:</Form.Label> 
+                  <Form.Control 
+                    type="text" 
+                    style={{width:250}}
+                    placeholder="Enter Employee Code" 
+                    onChange={(e)=>{setEmployeeName(e.target.value)}}/> 
+              </div>
+              <div style={{paddingRight:50}}>
+                <Form.Label className="control-label">Passport No:</Form.Label> 
+                  <Form.Control 
+                    type="text" 
+                    style={{width:250}}
+                    placeholder="Enter First Name" 
+                    onChange={(e)=>{setEmployeeCode(e.target.value)}}/> 
+              </div>
+              <div style={{paddingRight:50}}>
+                <Form.Label className="control-label">Contact No:</Form.Label> 
+                  <Form.Control 
+                    type="text" 
+                    style={{width:250}}
+                    placeholder="Enter First Name" 
+                    onChange={(e)=>{setEmployeeCode(e.target.value)}}/> 
+              </div>
+            </div>
             <br/>
             <Form.Group> 
               <Form.Label className="control-label">Employee Code:</Form.Label> 

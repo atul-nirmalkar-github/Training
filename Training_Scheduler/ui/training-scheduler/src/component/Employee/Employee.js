@@ -5,64 +5,110 @@ import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the 
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
 import "./employee.css"
 import { useNavigate } from "react-router-dom";
-import { fetchAllEmployee, fetchTrainingDetails } from "../Api/ApiManager";
+import { deleteCompany, fetchCompany, fetchCompanyByStatus, fetchDepartment } from "../Api/ApiManager";
 
 function Employee() {
   const navigate = useNavigate()
   const [rowData, setRowData] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+  // Column Definitions: Defines the columns to be displayed.
+  const [colDefs, setColDefs] = useState([
+    { field: "id" , hide: true, flex: 1, cellStyle: { 'textAlign': 'left' }},
+    { 
+      field: "companyName" ,
+      flex: 1, 
+      cellStyle: { 'textAlign': 'left'} ,
+      headerCheckboxSelection: true,
+      checkboxSelection: true,
+      showDisabledCheckboxes: true
+    },
+    { field: "companyPhone" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
+    { field: "contactName" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
+    { field: "contactPhone" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
+    { field: "companyAddress" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
+    { field: "deviceCount" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
+    { field: "employeeCount" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
+    { field: "userCount" ,flex: 1, cellStyle: { 'textAlign': 'left' }},
+    {  field: 'edit',flex:1,
+        cellRenderer : function(params){
+            function navigateToEdit(params){
+              navigate('/company/'+params.data.id)
+            }
+            return <Button onClick={()=>{navigateToEdit(params)}}>Edit</Button>
+        }
+    }
+  ]);
 
   useEffect(()=>{
-    fetchAllEmployee().
+    fetchCompanyList()
+  },[])
+  function fetchCompanyList(){
+    fetchCompanyByStatus("ACTIVE").
     then((data)=>{
-      console.log(data)
       createRowData(data)
     })
-  },[])
-
+  }
   function createRowData(data){
     let tempArr = [];
     data.map((row)=>{
-      console.log(row)
       tempArr.push({
-        employeeName: row.employeeName,
-        employeeCode: row.employeeCode,
-        department: row.department.departmentName,
-        subDepartment: row.subDepartment.subDepartmentName,
-        gender: row.gender,
-        email: row.email,
-        dob: row.dob
+        id: row.id,
+        companyName: row.name,
+        companyPhone: row.companyPhone,
+        contactName: row.contactName,
+        contactPhone: row.contactPhone,
+        companyAddress: row.companyAddress,
+        deviceCount: row.maxDevicesLimit,
+        employeeCount: row.maxEmployeesLimit,
+        userCount: row.maxEmployeesLimit,
       })
     })
     setRowData(tempArr);
   }
-  
-  // Column Definitions: Defines the columns to be displayed.
-  const [colDefs, setColDefs] = useState([
-    { field: "employeeName" ,flex: 1, cellStyle: { 'text-align': 'left' }},
-    { field: "employeeCode" ,flex: 1, cellStyle: { 'text-align': 'left' }},
-    { field: "department" ,flex: 1, cellStyle: { 'text-align': 'left' }},
-    { field: "subDepartment" ,flex: 1, cellStyle: { 'text-align': 'left' }},
-    { field: "gender" ,flex: 1, cellStyle: { 'text-align': 'left' }},
-    { field: "email" ,flex: 1, cellStyle: { 'text-align': 'left' }},
-    { field: "dob" ,flex: 1, cellStyle: { 'text-align': 'left' }}
-  ]);
   function clickHandler(url){
     navigate(url);
-}
+  }
+  function removeHandler(event){
+    let header = {
+      ids: companyList
+    }
+    deleteCompany(header).
+      then((response)=>{
+        fetchCompanyList()
+      });
+      event.preventDefault();
+  }
+  function addCompanyList(event){
+    var tempArr = [];
+    event.api.getSelectedRows().map((row)=>{
+      tempArr.push(row['id']);
+    })
+    setCompanyList(tempArr);
+  }
   return (
     <>
       
+      <div style={{width:'100%'}}>
           <Button className="float-start createButton" onClick={() => {clickHandler("/employee/create")}}>
-          Register Employee
+              Register Employee
           </Button>
-        <div
-          className="ag-theme-quartz gridMargin" // applying the grid theme
-          style={{ height: 500 }} // the grid will fill the size of the parent container
-        >
-          <AgGridReact
-              rowData={rowData}
-              columnDefs={colDefs}
-          />
+          <Button className="float-start createButton" onClick={removeHandler}>
+              Remove Company
+          </Button>
+          <div
+            className="ag-theme-quartz gridMargin" // applying the grid theme
+            style={{ height: 500 }} // the grid will fill the size of the parent container
+          >
+            <AgGridReact
+                rowData={rowData}
+                columnDefs={colDefs}
+                rowSelection="multiple"
+                rowMultiSelectWithClick={true}
+                onSelectionChanged={addCompanyList}
+                suppressRowClickSelection={true}
+            />
+          </div>
+  
         </div>
       
         
